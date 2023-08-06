@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { Navigation } from '@/components/Navigation'
 import { AnnouncementModalCreate } from '@/components/AnnouncementModal'
 import { redirect } from 'next/navigation'
+import { deleteAnnouncement } from '../announcement/deleteAnnouncement'
 
 export default async function Index() {
   const supabase = createServerComponentClient({ cookies })
@@ -32,7 +33,16 @@ export default async function Index() {
               >
                 <h2 className="text-2xl font-bold">{announcement.title}</h2>
                 <p>{announcement.description}</p>
-                <div className="mt-auto w-full flex">
+                <form
+                  action={deleteAnnouncement}
+                  className="mt-auto w-full flex"
+                >
+                  <input
+                    id="announcement_id"
+                    name="announcement_id"
+                    defaultValue={announcement.id}
+                    className="hidden"
+                  />
                   <button
                     className={
                       'p-1 px-2 border-foreground/10 text-foreground/40 hover:text-red-500/90 border hover:border-red-500/90 rounded ml-auto'
@@ -40,7 +50,7 @@ export default async function Index() {
                   >
                     Delete
                   </button>
-                </div>
+                </form>
               </li>
             )
           })}
