@@ -83,7 +83,7 @@ export const AnnouncementModalCreate: React.FC<AnnouncementModalProps> = ({
 
             <div className="sm:col-span-4">
               <label
-                htmlFor="image_source_url"
+                htmlFor="image_file"
                 className="block text-sm font-medium leading-6 text-foreground"
               >
                 Image Url
@@ -91,10 +91,10 @@ export const AnnouncementModalCreate: React.FC<AnnouncementModalProps> = ({
               <div className="mt-2">
                 <div className="rounded-md p-1 bg-inherit border mb-6">
                   <input
-                    type="text"
-                    name="image_source_url"
-                    id="image_source_url"
-                    autoComplete="image_source_url"
+                    type="file"
+                    name="image_file"
+                    id="image_file"
+                    autoComplete="image_file"
                     className="flex-1 border-0 w-full bg-transparent py-1.5 px-2.5 text-foreground focus:ring-0 sm:text-sm sm:leading-6 outline-none"
                   />
                 </div>

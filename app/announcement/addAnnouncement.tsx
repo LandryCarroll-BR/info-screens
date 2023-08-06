@@ -6,9 +6,6 @@ import { cookies } from 'next/headers'
 
 export const addAnnouncement = async (formData: FormData) => {
   'use server'
-  const title = formData.get('title')
-  const description = formData.get('description')
-  const image_source_url = formData.get('image_source_url')
 
   const supabase = createServerComponentClient({ cookies })
 
@@ -18,7 +15,17 @@ export const addAnnouncement = async (formData: FormData) => {
 
   if (!user) throw new Error('must be logged in to create announcements')
 
-  if (title && description) {
+  const title = formData.get('title') ?? ' '
+  const description = formData.get('description') ?? ' '
+  const file = formData.get('image_file') as File
+
+  const { data, error } = await supabase.storage
+    .from('images')
+    .upload(file.name, file)
+  if (error) {
+    console.log({ error })
+  } else {
+    let image_source_url = data.path
     await supabase
       .from('announcement')
       .insert({ title, description, image_source_url })
