@@ -8,6 +8,8 @@ export const metadata = {
   description: 'Church information displays',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default function RootLayout({
   children,
 }: {
