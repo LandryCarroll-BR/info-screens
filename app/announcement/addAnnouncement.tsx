@@ -25,7 +25,7 @@ export const addAnnouncement = async (formData: FormData) => {
   if (error) {
     console.log({ error })
   } else {
-    let image_source_url = data.path
+    let image_source_url = `https://ibbcazsenzltzokoeiwr.supabase.co/storage/v1/object/public/images/${data.path}`
     await supabase
       .from('announcement')
       .insert({ title, description, image_source_url })
