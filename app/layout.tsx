@@ -19,11 +19,11 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          ' bg-background font-sans antialiased',
           fontSans.variable
         )}
       >
-        <main className="min-h-screen bg-background flex flex-col items-center">
+        <main className=" bg-background flex flex-col items-center">
           {children}
         </main>
       </body>

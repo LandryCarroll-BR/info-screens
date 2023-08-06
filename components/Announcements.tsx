@@ -39,10 +39,24 @@ export const Announcements: React.FC<AnnouncementsProps> = ({
     }
   }, [])
 
+  React.useEffect(() => {
+    // Reload the page every hour
+    const intervalId = setInterval(() => {
+      window.location.reload()
+    }, 60 * 60 * 1000) // 60 minutes * 60 seconds * 1000 milliseconds
+
+    // Clean up the interval when the component unmounts
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [])
+
   function incrementIndex() {
-    setActiveIndex(
-      activeIndex === Announcements.length + 1 ? 0 : activeIndex + 1
-    )
+    if (announcements) {
+      setActiveIndex(
+        activeIndex === announcements?.length - 1 ? 0 : activeIndex + 1
+      )
+    }
   }
 
   const motionVariants = {
@@ -56,7 +70,7 @@ export const Announcements: React.FC<AnnouncementsProps> = ({
       },
     },
     isInActive: {
-      translateX: '80vh',
+      translateX: '60vw',
       scale: 0.8,
       opacity: 0,
       transition: {
@@ -65,7 +79,7 @@ export const Announcements: React.FC<AnnouncementsProps> = ({
       },
     },
     isComplete: {
-      translateX: '-80vh',
+      translateX: '-60vw',
       scale: 0.8,
       opacity: 0,
       transition: {
@@ -88,7 +102,10 @@ export const Announcements: React.FC<AnnouncementsProps> = ({
         return (
           <motion.li
             animate={status}
-            initial={false}
+            initial={{
+              opacity: 0,
+              scale: 0.8,
+            }}
             variants={motionVariants}
             key={announcement.id}
             className="text-white absolute h-full w-full"
